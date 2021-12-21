@@ -16,6 +16,11 @@ const UserSchema = new Schema({
     type: "string",
     required: true,
   },
+  role: {
+    type: "string",
+    enum:["student", "teacher", "admin"],
+    default: "student"
+  }
 });
 
 //middleware
