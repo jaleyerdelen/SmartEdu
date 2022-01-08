@@ -6,6 +6,7 @@ const Course = require("../models/Course");
 exports.createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
+    console.log(user)
     res.status(201).redirect("/login");
   } catch (error) {
     res.status(400).json({
@@ -23,11 +24,9 @@ exports.loginUser =  (req, res) => {
    User.findOne({ email: email}, (err, user) => {
     if(user){
       bcrypt.compare(password, user.password, (err, same)=> {
-        if(same){
           //user session
           req.session.userID = user._id;
           res.status(200).redirect("/users/dashboard")
-        }
       })
     }
   }) 
@@ -57,4 +56,3 @@ exports.logoutUser = (req, res) => {
    });
  };   
   
-
