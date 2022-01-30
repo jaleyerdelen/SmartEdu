@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mongoose": "^6.0.13",
+    "nodemailer": "^6.7.2",
     "slugify": "^1.6.2"
   },
   "devDependencies": {
