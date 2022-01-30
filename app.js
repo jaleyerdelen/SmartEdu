@@ -3,6 +3,7 @@ const pageRoute = require("./routes/pageRoute")
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const flash = require('connect-flash');
 const courseRoute = require("./routes/courseRoute")
 const categoryRoute = require("./routes/categoryRoute");
 const userRoute = require("./routes/userRoute");
@@ -12,11 +13,11 @@ const app = express();
 //Connect DB
 mongoose
   .connect("mongodb://localhost/smartedu-db", {
-     useNewUrlParser: true,
-     useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     // useFindAndModify: false,
     // useCreateIndex: true
-    
+
   })
   .then(() => {
     console.log("DB Connect success!");
@@ -40,8 +41,13 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: "mongodb://localhost/smartedu-db" }),
-  })
-);
+  }))
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.flashMessages = req.flash()
+  next()
+})
+
 //Routes
 app.use("*", (req, res, next) => {
   userIN = req.session.userID;
