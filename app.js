@@ -13,7 +13,7 @@ const app = express();
 
 //Connect DB
 mongoose
-  .connect("mongodb://localhost/smartedu-db", {
+  .connect("mongodb+srv://dbUser:78aBhOLpSEwl7Uop@cluster0.qor7v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // useFindAndModify: false,
@@ -22,7 +22,6 @@ mongoose
   .then(() => {
     console.log("DB Connect success!");
   });
-
 //Template engine
 app.set("view engine", "ejs");
 
@@ -63,7 +62,7 @@ app.use("/courses", courseRoute);
 app.use("/categories", categoryRoute);
 app.use("/users", userRoute);
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`App started on port ${port}`);
 });
